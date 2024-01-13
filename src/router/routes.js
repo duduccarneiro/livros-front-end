@@ -5,9 +5,13 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'assuntos', name: 'assuntos', component: () => import('pages/Assuntos/AssIndex.vue') },
       { path: 'autores', name: 'autores', component: () => import('pages/Autores/AutoresIndex.vue') },
-      { path: 'autores/editar/:codAu', name: 'autores-update', component: () => import('pages/Autores/AutoresNewUpdate.vue') }
+      { path: 'autores/novo', name: 'autores-new', component: () => import('pages/Autores/AutoresNewUpdate.vue') },
+      { path: 'autores/editar/:codAu', name: 'autores-update', component: () => import('pages/Autores/AutoresNewUpdate.vue') },
+      { path: 'assuntos', name: 'assuntos', component: () => import('pages/Assuntos/AsPageIndex.vue') },
+      { path: 'assuntos/novo', name: 'assuntos-new', component: () => import('pages/Assuntos/AssuntosNewUpdate.vue') },
+      { path: 'assuntos/editar/:codAs', name: 'assuntos-update', component: () => import('pages/Assuntos/AssuntosNewUpdate.vue') },
+      { path: 'livros', name: 'livros', component: () => import('pages/Livros/LivrosPageIndex.vue') },
     ]
   },
 

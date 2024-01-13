@@ -1,8 +1,8 @@
 <template>
   <q-page padding class="column">
     <div class="row items-center q-gutter-lg q-mb-lg">
-      <span class="text-h4">Gerenciamento de Autores</span>
-      <q-btn ref="adicionar" label="Novo" color="primary" @click="$router.push('/autores/novo')"/>
+      <span class="text-h4">Gerenciamento de Assuntos</span>
+      <q-btn ref="adicionar" label="Novo" color="primary" @click="$router.push('/assuntos/novo')"/>
     </div>
     <div class="column col-xs-12 col-sm">
       <q-table
@@ -26,18 +26,18 @@
               :align="item.align"
             >
               <q-input
-                v-if="item.name == 'codAu'"
+                v-if="item.name == 'codAs'"
                 dense
-                v-model="filter.codAu"
+                v-model="filter.codAs"
                 name="descricao"
                 filled
                 debounce="800"
                 autocomplete="off"
               />
               <q-input
-                v-if="item.name == 'nome'"
+                v-if="item.name == 'descricao'"
                 dense
-                v-model="filter.nome"
+                v-model="filter.descricao"
                 name="descricao"
                 filled
                 debounce="800"
@@ -52,7 +52,7 @@
 
         <template v-slot:body-cell-acoes="props">
           <q-td :props="props" class="q-gutter-x-sm">
-            <q-btn name="btnEditar" dense color="primary" @click="editarAutor(props.row)" icon="edit" round >
+            <q-btn name="btnEditar" dense color="primary" @click="editarAssunto(props.row)" icon="edit" round >
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
             <q-btn name="btnApagar" dense color="negative" @click="showConfirmarExcluir(props.row)" icon="delete_forever" round >
@@ -77,11 +77,11 @@ const isLoading = ref(false)
 const router = useRouter()
 const listaLivros = ref([])
 const filter = ref({
-  codAu: '',
-  nome: '',
+  codAs: '',
+  descricao: '',
 })
 const pagination = ref({
-  sortBy: 'nome',
+  sortBy: 'descricao',
   descending: false,
   page: 1,
   rowsPerPage: 10,
@@ -89,19 +89,19 @@ const pagination = ref({
 })
 const columns = [
   {
-    name: 'codAu',
+    name: 'codAs',
     required: 'true',
     label: 'Código',
     align: 'left',
-    field: row => row.codAu,
+    field: row => row.codAs,
     sortable: true
   },
   {
-    name: 'nome',
+    name: 'descricao',
     required: 'true',
-    label: 'Nome',
+    label: 'Descricao',
     align: 'left',
-    field: row => row.nome,
+    field: row => row.descricao,
     sortable: true
   },
   {
@@ -116,14 +116,14 @@ const handleListLivros = async (props) => {
   try {
     // api.get('sanctum/csrf-cookie')
     isLoading.value = true
-    const { data: response } = await api.get('api/autores', {
+    const { data: response } = await api.get('api/assuntos', {
       params: {
         page,
         size: rowsPerPage,
         sort_by: sortBy,
         order: descending ? 'desc' : 'asc',
-        'codAu[like]': (props.filter.codAu ? props.filter.codAu + '%' : null),
-        'nome[like]': (props.filter.nome ? props.filter.nome + '%' : null),
+        'codAs[like]': (props.filter.codAs ? props.filter.codAs + '%' : null),
+        'descricao[like]': (props.filter.descricao ? props.filter.descricao + '%' : null),
       }
     })
     pagination.value.rowsNumber = response.meta.total
@@ -152,29 +152,29 @@ onMounted(() => {
 })
 
 const limparFiltro = () => {
-  filter.value.codAu = ''
-  filter.value.nome = ''
+  filter.value.codAs = ''
+  filter.value.descricao = ''
 }
 
-const editarAutor = (autor) => {
-  router.push(`autores/editar/${autor.codAu}`)
+const editarAssunto = (assunto) => {
+  router.push(`assuntos/editar/${assunto.codAs}`)
 }
 
-function showConfirmarExcluir(autor) {
+function showConfirmarExcluir(assunto) {
   $q.dialog({
     title: 'Confirmar exclusão',
-    message: `Confirma a exclusão do Autor: ${autor.nome}?`,
+    message: `Confirma a exclusão do Assunto: ${assunto.descricao}?`,
     cancel: true,
     persistent: true
   }).onOk(() => {
-    excluirAutor(autor)
+    excluirAssunto(assunto)
   })
 }
 
-const excluirAutor = (autor) => {
-  api.delete(`/api/autores/${autor.codAu}`)
+const excluirAssunto = (assunto) => {
+  api.delete(`/api/assuntos/${assunto.codAs}`)
     .then((response) => {
-      $q.notify({ type: 'positive', position: 'top', message: 'Autor apagado com Sucesso' })
+      $q.notify({ type: 'positive', position: 'top', message: 'Assunto apagado com Sucesso' })
       tableLivrosRef.value.requestServerInteraction()
     })
     .catch(({ response }) => {
