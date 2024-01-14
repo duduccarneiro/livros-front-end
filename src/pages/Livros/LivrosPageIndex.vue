@@ -8,6 +8,12 @@
         color="primary"
         @click="$router.push('/livros/novo')"
       />
+      <q-btn
+        :href="`${api.defaults.baseURL}api/livros/relatorio`"
+        label="Relarório de Livros por autor"
+        color="primary"
+        download
+      />
     </div>
     <div class="column col-xs-12 col-sm">
       <q-table
@@ -122,7 +128,7 @@ import { useQuasar, date } from "quasar"
 import { api } from "src/boot/axios"
 import { onBeforeUnmount, onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
-
+console.log(api.defaults.baseURL)
 const $q = useQuasar()
 const tableLivrosRef = ref()
 const isLoading = ref(false)

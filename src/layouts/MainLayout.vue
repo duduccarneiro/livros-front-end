@@ -51,6 +51,12 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
+    title: 'Início',
+    caption: '',
+    icon: 'home',
+    route: '/'
+  },
+  {
     title: 'Livros',
     caption: 'Gerenciar livros',
     icon: 'menu_book',

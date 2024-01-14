@@ -15,7 +15,7 @@
             filled
             :rules="[
               val => !!val || 'O campo título é obrigatório',
-              val => val.length < 40 || 'O campo título deve ter no máximo 40 caracteres',
+              val => val.length <= 40 || 'O campo título deve ter no máximo 40 caracteres',
             ]"
           />
         </div>
@@ -28,7 +28,7 @@
             filled
             :rules="[
               val => !!val || 'O campo editora é obrigatório',
-              val => val.length < 40 || 'O campo editora deve ter no máximo 40 caracteres',
+              val => val.length <= 40 || 'O campo editora deve ter no máximo 40 caracteres',
             ]"
           />
         </div>
@@ -238,7 +238,7 @@ const handleGetLivro = async (codL) => {
   } catch (error) {
     isLoading.value = false
     if( error.response.status === 404 ) {
-      //todo: ver se redireciona para a tela anterior automaticamente ou se encaminha para tela de erro 404
+      router.push('/livro-nao-encontrado')
       $q.notify({
         type: 'negative',
         position: 'top',

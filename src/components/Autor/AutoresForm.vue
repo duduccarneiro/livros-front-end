@@ -15,7 +15,7 @@
             filled
             :rules="[
               val => !!val || 'O campo nome é obrigatório',
-              val => val.length < 40 || 'O campo nome deve ter no máximo 40 caracteres',
+              val => val.length <= 40 || 'O campo nome deve ter no máximo 40 caracteres',
             ]"
           />
         </div>
@@ -53,7 +53,7 @@ const handleGetAutor = async (codAu) => {
   } catch (error) {
     isLoading.value = false
     if( error.response.status === 404 ) {
-      //todo: ver se redireciona para a tela anterior automaticamente ou se encaminha para tela de erro 404
+      router.push('/autor-nao-encontrado')
       $q.notify({
         type: 'negative',
         position: 'top',

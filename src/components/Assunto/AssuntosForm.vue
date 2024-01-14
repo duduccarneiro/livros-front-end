@@ -15,7 +15,7 @@
             filled
             :rules="[
               val => !!val || 'O campo descricao é obrigatório',
-              val => val.length < 40 || 'O campo descricao deve ter no máximo 40 caracteres',
+              val => val.length <= 40 || 'O campo descricao deve ter no máximo 40 caracteres',
             ]"
           />
         </div>
@@ -53,13 +53,12 @@ const handleGetAssunto = async (codAs) => {
   } catch (error) {
     isLoading.value = false
     if( error.response.status === 404 ) {
-      //todo: ver se redireciona para a tela anterior automaticamente ou se encaminha para tela de erro 404
+      router.push('/assunto-nao-encontrado')
       $q.notify({
         type: 'negative',
         position: 'top',
         message: 'Registro não encontrado'
       })
-      console.log('Erro 404 mane')
     } else {
       $q.notify({
         type: 'negative',
