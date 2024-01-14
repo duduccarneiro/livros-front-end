@@ -12,6 +12,8 @@ const routes = [
       { path: 'assuntos/novo', name: 'assuntos-new', component: () => import('pages/Assuntos/AssuntosNewUpdate.vue') },
       { path: 'assuntos/editar/:codAs', name: 'assuntos-update', component: () => import('pages/Assuntos/AssuntosNewUpdate.vue') },
       { path: 'livros', name: 'livros', component: () => import('pages/Livros/LivrosPageIndex.vue') },
+      { path: 'livros/novo', name: 'livros-new', component: () => import('src/pages/Livros/LivrosNovoUpdate.vue') },
+      { path: 'livros/editar/:codL', name: 'livros-update', component: () => import('pages/Livros/LivrosNovoUpdate.vue') },
     ]
   },
 
