@@ -15,7 +15,7 @@
             filled
             :rules="[
               val => !!val || 'O campo descricao é obrigatório',
-              val => val.length <= 40 || 'O campo descricao deve ter no máximo 40 caracteres',
+              val => val.length <= 20 || 'O campo descricao deve ter no máximo 20 caracteres',
             ]"
           />
         </div>
